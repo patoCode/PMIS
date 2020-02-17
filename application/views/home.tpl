@@ -3,7 +3,7 @@
 <body>
     Test Template:
     <br>
-    Titulo: {$title}
+    Titulo: {$title|upper}
     <br>
     Descripcion: {$description}
     <br>
