@@ -1,6 +1,6 @@
 <?php
 
-abstract class LoggerController{
+abstract class LoggerController extends CI_Controller{
     
     private $_id;
     private $id;
