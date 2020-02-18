@@ -1,35 +1,50 @@
 <?php
-require APPPATH . 'libraries/REST_Controller.php';
+require_once APPPATH.'controllers/custom/ApiController.php';
+require_once APPPATH.'controllers/custom/ApiResponse.php';
 
-class Api extends REST_Controller
+class Api extends ApiController
 {
-   
+    
     public function __construct() {
-        parent::__construct(); 
+        parent::__construct();    
         $this->load->model('Usuario_model', 'usuario');
     }
 
-    public function index_get($id = null){
-        
-        $data['usuarioList'] = $this->usuario->getAll();
-        $this->response($data, REST_Controller::HTTP_OK);
+    public function index_get($id = null){        
+        $responseApi = $this->verify_request(); 
+        if($responseApi->getResult() == 1){            
+            $data['status'] = $responseApi->getStatus();
+            $data['msgServer'] = $responseApi->getMsgServer();
+            $data['result'] = $responseApi->getResult();
+            $data['list'] = $this->usuario->getAll();            
+        }else{
+            $data['status'] = $responseApi->getStatus();
+            $data['msgServer'] = $responseApi->getMsgServer();
+            $data['result'] = $responseApi->getResult();            
+        }  
+        $this->response($data);      
     }
 
     public function index_post(){
-        $data['nombre'] = $this->input->post('nombre');
-        $data['apellido'] = $this->input->post('apellido');
-        $data['username'] = $this->input->post('username');
-        $data['password'] = $this->input->post('password');
-        $data['email'] = $this->input->post('email');
+        $data['username'] = $this->input->post('nombre');
+        $data['password'] = $this->input->post('apellido');
         $this->usuario->insert($data);
-        $this->response(['User created.'], REST_Controller::HTTP_OK);
-    }
-
-    public function index_delete($id)
+        
+        $token = AUTHORIZATION::generateToken($data);
+        $this->response(array('Token'=>$token, 'data' => $data), REST_Controller::HTTP_OK);
+    }    
+    
+    public function get_me_data_post()
     {
-        $this->usuario->delete(array('id_usuario' =>$id));
-       
-        $this->response(['User deleted successfully.'], REST_Controller::HTTP_OK);
+        // Call the verification method and store the return value in the variable
+        $data = $this->verify_request();
+
+        // Send the return data as reponse
+        $status = parent::HTTP_OK;
+
+        $response = ['status' => $status, 'data' => $data];
+
+        $this->response($response, $status);
     }
 
 }

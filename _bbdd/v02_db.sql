@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     17/02/2020 11:13:57                          */
+/* Created on:     17/02/2020 16:21:43                          */
 /*==============================================================*/
 
 /*
@@ -62,6 +62,10 @@ drop index PMIS_GRUPO_FORM_PK;
 
 drop table PMIS_GRUPO_FORM;
 
+drop index PMIS_GRUPO_USR_PK;
+
+drop table PMIS_GRUPO_USR;
+
 drop index R_LG01_FK;
 
 drop index PMIS_LOG_PK;
@@ -116,8 +120,6 @@ drop index PMIS_UNIDAD_MEDIDA_PK;
 
 drop table PMIS_UNIDAD_MEDIDA;
 
-drop index R17_FK;
-
 drop index PMIS_USUARIO_PK;
 
 drop table PMIS_USUARIO;
@@ -129,6 +131,10 @@ drop index R11_FK;
 drop index PMIS_USUARIO_FILIAL_PK;
 
 drop table PMIS_USUARIO_FILIAL;
+
+drop index R24_FK;
+
+drop index R17_FK;
 
 drop index PMIS_USUARIO_GRUPO_PK;
 
@@ -381,16 +387,16 @@ ID_GRUPO
 /* Table: PMIS_GRUPO_AUTORIZACION                               */
 /*==============================================================*/
 create table PMIS_GRUPO_AUTORIZACION (
-   ID_USUARIO_GRUPO     INT4                 not null,
+   ID_GRUPO_USR         INT4                 not null,
    ID_AUTORIZACION      INT4                 not null,
-   constraint PK_PMIS_GRUPO_AUTORIZACION primary key (ID_USUARIO_GRUPO, ID_AUTORIZACION)
+   constraint PK_PMIS_GRUPO_AUTORIZACION primary key (ID_GRUPO_USR, ID_AUTORIZACION)
 );
 
 /*==============================================================*/
 /* Index: PMIS_GRUPO_AUTORIZACION_PK                            */
 /*==============================================================*/
 create unique index PMIS_GRUPO_AUTORIZACION_PK on PMIS_GRUPO_AUTORIZACION (
-ID_USUARIO_GRUPO,
+ID_GRUPO_USR,
 ID_AUTORIZACION
 );
 
@@ -398,7 +404,7 @@ ID_AUTORIZACION
 /* Index: R18_FK                                                */
 /*==============================================================*/
 create  index R18_FK on PMIS_GRUPO_AUTORIZACION (
-ID_USUARIO_GRUPO
+ID_GRUPO_USR
 );
 
 /*==============================================================*/
@@ -437,6 +443,22 @@ ID_GRUPO
 /*==============================================================*/
 create  index R4_FK on PMIS_GRUPO_FORM (
 ID_FORMULARIO
+);
+
+/*==============================================================*/
+/* Table: PMIS_GRUPO_USR                                        */
+/*==============================================================*/
+create table PMIS_GRUPO_USR (
+   ID_GRUPO_USR         SERIAL               not null,
+   GRUPO                VARCHAR(200)         null,
+   constraint PK_PMIS_GRUPO_USR primary key (ID_GRUPO_USR)
+);
+
+/*==============================================================*/
+/* Index: PMIS_GRUPO_USR_PK                                     */
+/*==============================================================*/
+create unique index PMIS_GRUPO_USR_PK on PMIS_GRUPO_USR (
+ID_GRUPO_USR
 );
 
 /*==============================================================*/
@@ -637,17 +659,15 @@ ID_ROL
 /* Table: PMIS_ROL_USUARIO                                      */
 /*==============================================================*/
 create table PMIS_ROL_USUARIO (
-   ID_USUARIO_GRUPO     INT4                 not null,
    ID_USUARIO           INT4                 not null,
    ID_ROL               INT4                 not null,
-   constraint PK_PMIS_ROL_USUARIO primary key (ID_USUARIO_GRUPO, ID_USUARIO, ID_ROL)
+   constraint PK_PMIS_ROL_USUARIO primary key (ID_USUARIO, ID_ROL)
 );
 
 /*==============================================================*/
 /* Index: PMIS_ROL_USUARIO_PK                                   */
 /*==============================================================*/
 create unique index PMIS_ROL_USUARIO_PK on PMIS_ROL_USUARIO (
-ID_USUARIO_GRUPO,
 ID_USUARIO,
 ID_ROL
 );
@@ -656,7 +676,6 @@ ID_ROL
 /* Index: R13_FK                                                */
 /*==============================================================*/
 create  index R13_FK on PMIS_ROL_USUARIO (
-ID_USUARIO_GRUPO,
 ID_USUARIO
 );
 
@@ -692,7 +711,6 @@ ID_UNIDAD
 /* Table: PMIS_USUARIO                                          */
 /*==============================================================*/
 create table PMIS_USUARIO (
-   ID_USUARIO_GRUPO     INT4                 not null,
    ID_USUARIO           SERIAL               not null,
    USERNAME             VARCHAR(150)         null,
    PASSWORD             VARCHAR(150)         null,
@@ -701,22 +719,14 @@ create table PMIS_USUARIO (
    USUARIO_MOD          INT4                 null,
    FECHA_MOD            DATE                 null,
    ESTADO_REG           VARCHAR(10)          null,
-   constraint PK_PMIS_USUARIO primary key (ID_USUARIO_GRUPO, ID_USUARIO)
+   constraint PK_PMIS_USUARIO primary key (ID_USUARIO)
 );
 
 /*==============================================================*/
 /* Index: PMIS_USUARIO_PK                                       */
 /*==============================================================*/
 create unique index PMIS_USUARIO_PK on PMIS_USUARIO (
-ID_USUARIO_GRUPO,
 ID_USUARIO
-);
-
-/*==============================================================*/
-/* Index: R17_FK                                                */
-/*==============================================================*/
-create  index R17_FK on PMIS_USUARIO (
-ID_USUARIO_GRUPO
 );
 
 /*==============================================================*/
@@ -724,9 +734,8 @@ ID_USUARIO_GRUPO
 /*==============================================================*/
 create table PMIS_USUARIO_FILIAL (
    ID_FILIAL            INT4                 not null,
-   ID_USUARIO_GRUPO     INT4                 not null,
    ID_USUARIO           INT4                 not null,
-   constraint PK_PMIS_USUARIO_FILIAL primary key (ID_FILIAL, ID_USUARIO_GRUPO, ID_USUARIO)
+   constraint PK_PMIS_USUARIO_FILIAL primary key (ID_FILIAL, ID_USUARIO)
 );
 
 /*==============================================================*/
@@ -734,7 +743,6 @@ create table PMIS_USUARIO_FILIAL (
 /*==============================================================*/
 create unique index PMIS_USUARIO_FILIAL_PK on PMIS_USUARIO_FILIAL (
 ID_FILIAL,
-ID_USUARIO_GRUPO,
 ID_USUARIO
 );
 
@@ -749,7 +757,6 @@ ID_FILIAL
 /* Index: R12_FK                                                */
 /*==============================================================*/
 create  index R12_FK on PMIS_USUARIO_FILIAL (
-ID_USUARIO_GRUPO,
 ID_USUARIO
 );
 
@@ -757,16 +764,31 @@ ID_USUARIO
 /* Table: PMIS_USUARIO_GRUPO                                    */
 /*==============================================================*/
 create table PMIS_USUARIO_GRUPO (
-   ID_USUARIO_GRUPO     SERIAL               not null,
-   GRUPO                VARCHAR(200)         null,
-   constraint PK_PMIS_USUARIO_GRUPO primary key (ID_USUARIO_GRUPO)
+   ID_GRUPO_USR         INT4                 not null,
+   ID_USUARIO           INT4                 not null,
+   constraint PK_PMIS_USUARIO_GRUPO primary key (ID_GRUPO_USR, ID_USUARIO)
 );
 
 /*==============================================================*/
 /* Index: PMIS_USUARIO_GRUPO_PK                                 */
 /*==============================================================*/
 create unique index PMIS_USUARIO_GRUPO_PK on PMIS_USUARIO_GRUPO (
-ID_USUARIO_GRUPO
+ID_GRUPO_USR,
+ID_USUARIO
+);
+
+/*==============================================================*/
+/* Index: R17_FK                                                */
+/*==============================================================*/
+create  index R17_FK on PMIS_USUARIO_GRUPO (
+ID_GRUPO_USR
+);
+
+/*==============================================================*/
+/* Index: R24_FK                                                */
+/*==============================================================*/
+create  index R24_FK on PMIS_USUARIO_GRUPO (
+ID_USUARIO
 );
 
 /*==============================================================*/
@@ -861,8 +883,8 @@ alter table PMIS_GALERIA
       on delete restrict on update restrict;
 
 alter table PMIS_GRUPO_AUTORIZACION
-   add constraint FK_PMIS_GRU_R18_PMIS_USU foreign key (ID_USUARIO_GRUPO)
-      references PMIS_USUARIO_GRUPO (ID_USUARIO_GRUPO)
+   add constraint FK_PMIS_GRU_R18_PMIS_GRU foreign key (ID_GRUPO_USR)
+      references PMIS_GRUPO_USR (ID_GRUPO_USR)
       on delete restrict on update restrict;
 
 alter table PMIS_GRUPO_AUTORIZACION
@@ -916,18 +938,13 @@ alter table PMIS_PRY_FILIAL
       on delete restrict on update restrict;
 
 alter table PMIS_ROL_USUARIO
-   add constraint FK_PMIS_ROL_R13_PMIS_USU foreign key (ID_USUARIO_GRUPO, ID_USUARIO)
-      references PMIS_USUARIO (ID_USUARIO_GRUPO, ID_USUARIO)
+   add constraint FK_PMIS_ROL_R13_PMIS_USU foreign key (ID_USUARIO)
+      references PMIS_USUARIO (ID_USUARIO)
       on delete restrict on update restrict;
 
 alter table PMIS_ROL_USUARIO
    add constraint FK_PMIS_ROL_R14_PMIS_ROL foreign key (ID_ROL)
       references PMIS_ROL (ID_ROL)
-      on delete restrict on update restrict;
-
-alter table PMIS_USUARIO
-   add constraint FK_PMIS_USU_R17_PMIS_USU foreign key (ID_USUARIO_GRUPO)
-      references PMIS_USUARIO_GRUPO (ID_USUARIO_GRUPO)
       on delete restrict on update restrict;
 
 alter table PMIS_USUARIO_FILIAL
@@ -936,8 +953,18 @@ alter table PMIS_USUARIO_FILIAL
       on delete restrict on update restrict;
 
 alter table PMIS_USUARIO_FILIAL
-   add constraint FK_PMIS_USU_R12_PMIS_USU foreign key (ID_USUARIO_GRUPO, ID_USUARIO)
-      references PMIS_USUARIO (ID_USUARIO_GRUPO, ID_USUARIO)
+   add constraint FK_PMIS_USU_R12_PMIS_USU foreign key (ID_USUARIO)
+      references PMIS_USUARIO (ID_USUARIO)
+      on delete restrict on update restrict;
+
+alter table PMIS_USUARIO_GRUPO
+   add constraint FK_PMIS_USU_R17_PMIS_GRU foreign key (ID_GRUPO_USR)
+      references PMIS_GRUPO_USR (ID_GRUPO_USR)
+      on delete restrict on update restrict;
+
+alter table PMIS_USUARIO_GRUPO
+   add constraint FK_PMIS_USU_R24_PMIS_USU foreign key (ID_USUARIO)
+      references PMIS_USUARIO (ID_USUARIO)
       on delete restrict on update restrict;
 
 alter table PMIS_VARIABLE

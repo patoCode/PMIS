@@ -1,6 +1,4 @@
 <?php
-
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -381,6 +379,7 @@ abstract class REST_Controller extends \CI_Controller {
     {
         parent::__construct();
 
+        
         $this->preflight_checks();
 
         // Set the default value of global xss filtering. Same approach as CodeIgniter 3

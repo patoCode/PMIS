@@ -3,13 +3,13 @@
 class Usuario_model extends CI_Model {
 
   public function getAll(){
-    $q = $this->db->get('usuario');
+    $q = $this->db->get('pmis_usuario');
     $response = $q->result();
     return $response;
   }
 
   public function insert($data){
-    if($this->db->insert('usuario', $data)){
+    if($this->db->insert('pmis_usuario', $data)){
       return true;
     }
       else{
@@ -18,7 +18,7 @@ class Usuario_model extends CI_Model {
   }
 
   public function delete($data){
-    if($this->db->delete('usuario', $data)){
+    if($this->db->delete('pmis_usuario', $data)){
       return true;
     }
       else{
