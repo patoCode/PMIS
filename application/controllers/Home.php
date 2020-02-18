@@ -13,7 +13,8 @@ class Home extends CI_Controller
     public function index()
     {
        $this->smartyview->assign('saludo', 'saludo desde template controller');
-       $this->smartyview->display('saludo.tpl');
+       //$this->smartyview->display('saludo.tpl');
+       echo "<p>Quetal bro!!!!</p>";
     }
 
     public function demo(){        

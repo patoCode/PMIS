@@ -2,8 +2,6 @@
 require_once APPPATH . 'libraries/REST_Controller.php';
 require_once APPPATH.'controllers/custom/ApiResponse.php';
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 class ApiController extends REST_Controller
 {
@@ -13,8 +11,14 @@ class ApiController extends REST_Controller
         $this->responseApi = new ApiResponse();
     }
     protected function verify_request():ApiResponse{
+        
+        $varLog;        
         $headers = $this->input->request_headers();
-        $token = $headers['Authorization'];
+        $token = $headers['Authorization'];        
+        $varLog = $this->responseApi->getVarLog();
+        /* AGREGAMOS ELEMENTOS DEL LOG QUE SE OBTIENES DESDE EL REQUES AUNQUE EL TOKEN SE INVALIDO */
+        $varLog->setIp($this->input->ip_address());
+        
         // JWT library throws exception if the token is not valid
         try {
             // Validate the token
@@ -31,12 +35,12 @@ class ApiController extends REST_Controller
                 $this->responseApi->setStatus(parent::HTTP_OK);
             }
         } catch (Exception $e) {
-            // Token is invalid
-            // Send the unathorized access message            
             $this->responseApi->setMsgServer(parent::HTTP_UNAUTHORIZED);
             $this->responseApi->setResult("0");
             $this->responseApi->setStatus(parent::HTTP_UNAUTHORIZED);
+            
         }
+        $this->responseApi->setVarLog($varLog);
         return $this->responseApi;
     }
 }

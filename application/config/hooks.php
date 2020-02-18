@@ -11,3 +11,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/user_guide/general/hooks.html
 |
 */
+// $hook['post_controller'] = array(
+//         'class'    => 'Tracer',
+//         'function' => 'catchEvent',
+//         'filename' => 'Tracer.php',
+//         'filepath' => 'hooks'
+// );
+// $hook['pre_controller'] = array(
+//     'class'    => 'Tracer',
+//     'function' => 'catchEvent',
+//     'filename' => 'Tracer.php',
+//     'filepath' => 'hooks'
+// );

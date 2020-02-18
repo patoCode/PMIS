@@ -1,15 +1,19 @@
 <?php
+require_once APPPATH.'controllers/log/VariableLog.php';
+
 class ApiResponse{
     private $msg;
     private $msgServer;
     private $status;
     private $result;
-    
+    private $varLog;
+        
     function __construct($msg = null, $status = null, $result = null, $msgServer = null){
         $this->msg = $msg;
         $this->msgServer = $msgServer;
         $this->status = $status;
         $this->result = $result;
+        $this->varLog = new VariableLog();
     }    
     public function getMsg(){
         return $this->msg;
@@ -34,5 +38,11 @@ class ApiResponse{
     }
     public function setResult($result){
         $this->result = $result;
-    }   
+    } 
+    public function getVarLog():VariableLog{
+        return $this->varLog;
+    }
+    public function setVarLog($varLog){
+        $this->varLog = $varLog;
+    } 
 }
