@@ -6,15 +6,23 @@ class ApiResponse{
     private $msgServer;
     private $status;
     private $result;
+    private $token;
     private $varLog;
         
-    function __construct($msg = null, $status = null, $result = null, $msgServer = null){
+    function __construct($msg = null, $status = null, $result = null, $msgServer = null, $token = null){
         $this->msg = $msg;
         $this->msgServer = $msgServer;
         $this->status = $status;
         $this->result = $result;
+        $this->token = $token;
         $this->varLog = new VariableLog();
-    }    
+    }
+    public function getToken(){
+        return $this->token;
+    }
+    public function setToken($token){
+        $this->token = $token;
+    }
     public function getMsg(){
         return $this->msg;
     }

@@ -43,8 +43,7 @@ abstract class LoggerController extends CI_Controller{
     }
     public function getIp(){
         return $this->ip;
-    }
-    
+    }    
     
     /**
      * Abstract method needs to be implemented in the classes that extend

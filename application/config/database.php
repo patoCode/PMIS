@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '172.17.0.3',
 	'username' => 'postgres',
-	'password' => 'postgres',
+	'password' => '=root',
 	'database' => 'PMIS',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',

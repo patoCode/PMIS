@@ -14,7 +14,11 @@ class Variable_model extends SYS_Model {
         return $this->db->update('pmis_variable', $input);
     }
     
+    public function delete(){}
+    
     public function list(){
+        $this->db->where('estado_reg',ESTADO_REG_VALID);
+        $this->db->where('estado',ESTADO_ACTIVO);
         $query = $this->db->get('pmis_variable');
         $result = $query->result();
         return $result;
@@ -22,6 +26,8 @@ class Variable_model extends SYS_Model {
     
     public function findById($id){
         $this->db->where('id_variable', $id);
+        $this->db->where('estado_reg',ESTADO_REG_VALID);
+        $this->db->where('estado',ESTADO_ACTIVO);
         $query = $this->db->get('pmis_variable');
         $result = $query->result();
         return $result;

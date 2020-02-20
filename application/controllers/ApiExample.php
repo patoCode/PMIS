@@ -30,6 +30,16 @@ class ApiExample extends ApiController
     
     public function method_post()
     {
+        $tokenData = 'Hello World!';
+        
+        // Create a token
+        $token = AUTHORIZATION::generateToken($tokenData);
+        // Set HTTP status code
+        $status = parent::HTTP_OK;
+        // Prepare the response
+        $response = ['status' => $status, 'token' => $token];
+        // REST_Controller provide this method to send responses
+        $this->response($response, $status);
     }
 
 }

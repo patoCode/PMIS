@@ -85,5 +85,30 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-/* EJMPLO */
-define('CONSTANTE','Soy la constante');
+/* ESTADO_REG */
+define('ESTADO_REG_VALID','vigente');
+define('ESTADO_REG_DELETE','borrado');
+/* ESTADO */
+define('ESTADO_ACTIVO', 'activo');
+define('ESTADO_INACTIVO', 'inactivo');
+
+/* USER */
+define('USER_NOT_FOUND','USUARIO NO ENCONTRADO');
+define('USER_CREATED','USUARIO CREADA EXITOSAMENTE');
+define('USER_CREATION_ERROR','USUARIO NO PUEDE SER CREADO');
+
+/* VARIABLE */
+define('VARIABLE_NOT_FOUND', 'VARIABLE NO ENCONTRADA');
+define('VARIABLE_CREATED','VARIABLE CREADA EXITOSAMENTE');
+define('VARIABLE_CREATION_ERROR','LA VARIABLE NO PUEDE SER CREADA');
+
+/* GROUP */
+define('GROUP_NOT_FOUND', 'GRUPO NO ENCONTRADO');
+define('GROUP_CREATED','GRUPO CREADO EXITOSAMENTE');
+define('GROUP_CREATION_ERROR','EL GRUPO NO PUEDE SER CREADO');
+
+
+/* COMMONS MESSAGE ERROR */
+define('RESPONSE_NULL','TOKEN INVÁLIDO');
+define('RESPONSE_RESULT_0','RESPONSE 0');
+define('EMPTY_MSG','NO ENCONTRADO');

@@ -12,21 +12,30 @@ class Variable extends ApiController{
     }
     
     /**
-     * create a variable
+     * Create a variable
      *
      * @return json
      */
     public function create_post(){
-        $input = $this->input->post(NULL, TRUE);
+        $data = array();
+        $input = $this->input->post(NULL, TRUE);        
+        $fechaMod = date('Y-m-d H:i:s');
         // ADD PARAMETERS TO DATA BASE
-        $input['fecha_mod'] = date('Y-m-d H:i:s');
-        $input['estado_reg'] = 'vigente';
-        $this->variable->create($input);
-        $this->response(array('MSG' => ' Creacion correcta','STATUS' => parent::HTTP_OK)); 
+        $input['fecha_mod'] = $fechaMod;
+        $input['estado_reg'] = ESTADO_REG_VALID;
+        
+        $responseApi = $this->verify_request();
+        if($responseApi->getResult() == 1){
+            $this->variable->create($input);
+            $data = $this->responseSystem($responseApi,null, null, VARIABLE_CREATED);            
+        }else{            
+            $data = $this->responseSystem($responseApi,null, null, VARIABLE_CREATION_ERROR); 
+        }
+        $this->set_response($data); 
     }
     
     /**
-     * update a variable from id
+     * Update a variable from id
      *
      * @return json
      */
@@ -36,9 +45,10 @@ class Variable extends ApiController{
         
         // ADD PARAMETERS TO DATA BASE
         $input['fecha_mod'] = date('Y-m-d H:i:s');
-        $input['estado_reg'] = 'vigente';
+        $input['estado_reg'] = ESTADO_REG_VALID;
         
         $this->variable->update($input, $_id);
+        
         $this->response(array('MSG' => 'Update correcto del registro '.$_id,'STATUS' => parent::HTTP_OK));
     }
     
@@ -58,7 +68,7 @@ class Variable extends ApiController{
      */
     public function list_get(){
         $data['list'] = $this->variable->list();
-        $this->response($data);  
+        $this->response($data);
     }
     
     /**
