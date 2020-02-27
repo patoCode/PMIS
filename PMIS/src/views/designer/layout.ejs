@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>PMIS - ENDE</title>
+	<%- include('../partials/datatable/datatable.css.ejs') %>
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<%- include('../user/menu', {menu: session.menu, user: session.user}) %>
+			<%- include('../partials/top-nav', {user: session.user}) %>
+
+            <!-- MAIN BODY -->
+
+			<!-- END MAIN BODY -->
+		</div>
+	</div>
+	<%- include('../partials/datatable/datatable.js.ejs') %>
+</body>
+
+</html>

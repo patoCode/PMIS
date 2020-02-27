@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 ">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Agregar Variable <small>CONSEJOS: </small></h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/form/addGroup">
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="Group">Formulario<span
+								class="required">*</span>
+						</label>
+						<div class="col-md-9 col-sm-9 ">
+							<input type="text"  required="required" class="form-control" value="" name="id_formulario"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="variable">Grupop <span
+								class="required">*</span>
+						</label>
+						<div class="col-md-9 col-sm-9 ">
+							<input type="text"  required="required"	class="form-control" value="" name="id_grupo"/>
+						</div>
+					</div>
+
+					<%- include('../partials/status-element')%>
+
+					<div class="ln_solid"></div>
+					<div class="item form-group">
+						<div class="col-md-12 col-sm-12">
+							<button type="submit" class="btn btn-success">Procesar</button>
+							<button class="btn btn-primary" type="reset">Limpiar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

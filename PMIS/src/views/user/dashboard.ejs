@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>PMIS - ENDE</title>
+	<%- include('../partials/head') %>
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+        <div class="main_container">
+            <%- include('menu', {menu: session.menu, user: session.user}) %>
+            <%- include('../partials/top-nav', {user: session.user}) %>
+
+        </div>
+	</div>
+	<%- include('../partials/scripts') %>
+</body>

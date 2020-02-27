@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>PMIS - ENDE</title>
+	<%- include('../partials/datatable/datatable.css.ejs') %>
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<%- include('../user/menu', {menu: session.menu, user: session.user}) %>
+			<%- include('../partials/top-nav', {user: session.user}) %>
+
+			<!-- MAIN BODY -->
+			<div class="right_col">
+
+
+				<div class="row">
+						<div class="col-md-4 col-xs-6">
+							<%- include('form') %>
+							<%- include('addVariableForm') %>
+						</div>
+						<div class="col-md-8 col-xs-6">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2> <%= title%><small> Ayuda: </small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li>
+											<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+
+								<div class="x_content">
+									<div class="table-responsive">
+										<table class="table table-striped jambo_table bulk_action">
+											<thead>
+												<tr class="headings">
+													<th>
+														<input type="checkbox" id="check-all" class="flat" />
+													</th>
+													<!--
+														id_variable, id_archivo, id_unidad, id_formato, nombre,
+														descripcion, label, codigo, requerida, estatica, formula, operable,
+														"table", orden, estado,
+														usuario_mod, fecha_mod, estado_reg
+													 -->
+													<th class="column-title">Nombre</th>
+													<th class="column-title">Descripcion</th>
+													<th class="column-title">Codigo</th>
+													<th class="column-title">Orden</th>
+													<th class="column-title">Estado</th>
+													<th class="column-title no-link last">
+														<span class="nobr">Action</span>
+													</th>
+													<th class="bulk-actions" colspan="7">
+														<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions (
+															<span class="action-cnt"> </span> )
+															<i class="fa fa-chevron-down"></i></a>
+													</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												<%
+												var count = 0
+												session.list.forEach(function(group){ %>
+												<tr class="<% if(count%2 == 0) {%>even<% }else{%>odd<% }%> pointer">
+													<td class="a-center ">
+														<input type="checkbox" class="flat" name="table_records" />
+													</td>
+													<td class=" "><%= group.nombre %></td>
+													<td class=" "><%= group.descripcion %></td>
+													<td class=" "><%= group.codigo %></td>
+													<td class=" "><%= group.orden %></td>
+													<td class=" "><%= group.estado %></td>
+
+													<td class=" last"><a href="#">View</a></td>
+												</tr>
+												<% })%>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<!-- GROUP DETAIL  -->
+							<!-- END GROUP DETAIL -->
+							<div class="x_panel">
+									<div class="x_title">
+										<h2> variables de grupo<small> Ayuda: </small></h2>
+										<ul class="nav navbar-right panel_toolbox">
+											<li>
+												<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+											</li>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+
+									<div class="x_content">
+										<div class="table-responsive">
+											<table class="table table-striped jambo_table bulk_action">
+												<thead>
+													<tr class="headings">
+														<th>
+															<input type="checkbox" id="check-all" class="flat" />
+														</th>
+														<!--
+															id_variable, id_archivo, id_unidad, id_formato, nombre,
+															descripcion, label, codigo, requerida, estatica, formula, operable,
+															"table", orden, estado,
+															usuario_mod, fecha_mod, estado_reg
+														 -->
+														<th class="column-title">Nombre</th>
+														<th class="column-title">Descripcion</th>
+														<th class="column-title">Codigo</th>
+														<th class="column-title">Orden</th>
+														<th class="column-title">Estado</th>
+														<th class="column-title no-link last">
+															<span class="nobr">Action</span>
+														</th>
+														<th class="bulk-actions" colspan="7">
+															<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions (
+																<span class="action-cnt"> </span> )
+																<i class="fa fa-chevron-down"></i></a>
+														</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<%
+													var count = 0
+													session.list.forEach(function(group){ %>
+													<tr class="<% if(count%2 == 0) {%>even<% }else{%>odd<% }%> pointer">
+														<td class="a-center ">
+															<input type="checkbox" class="flat" name="table_records" />
+														</td>
+														<td class=" "><%= group.nombre %></td>
+														<td class=" "><%= group.descripcion %></td>
+														<td class=" "><%= group.codigo %></td>
+														<td class=" "><%= group.orden %></td>
+														<td class=" "><%= group.estado %></td>
+
+														<td class=" last"><a href="#">View</a></td>
+													</tr>
+													<% })%>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
+						</div>
+					</div>
+			</div>
+			<!-- END MAIN BODY -->
+		</div>
+	</div>
+	<%- include('../partials/datatable/datatable.js.ejs') %>
+</body>
+
+</html>
